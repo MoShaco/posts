@@ -48,25 +48,4 @@
       </table>
     </div>
 
-    <script>
-      async function search(event) {
-
-          event.preventDefault(); // Prevent the default form submission behavior
-
-          // Access the input field directly
-         let keyword = document.querySelector('#keyword').value;
-
-          // Make the AJAX request
-          let response = await fetch('{{ route('posts.search') }}?' + new URLSearchParams({keyword}));
-
-          // Check if the request was successful (status code 200)
-          if (response.ok) {
-              let data = await response.text();
-              document.querySelector('tbody').innerHTML = data;
-          } else {
-              console.error('Error in AJAX request');
-          }
-      }
-  </script>
-
   @endsection
