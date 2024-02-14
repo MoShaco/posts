@@ -32,16 +32,19 @@ class PostController extends Controller
         $request->validate([
             'title' => ['required', 'max:20'],
             'description' => ['required', 'min:10', 'max:120'],
+            'city' => ['required','max:20'],
             'post_creator' => ['required', 'exists:users,id'],
         ]);
 
         $title = $request->title;
         $description = $request->description;
+        $city = $request->city;
         $postBy = $request->post_creator;
 
         Post::create([
             'title' => $title,
             'description' => $description,
+            'city' => $city,
             'user_id' => $postBy,
         ]);
 
@@ -63,17 +66,21 @@ class PostController extends Controller
         $request->validate([
             'title' => ['required','max:20'],
             'description' => ['required', 'min:10', 'max:120'],
+            'city' => ['required','max:20'],
             'post_creator' => ['required', 'exists:users,id'],
         ]);
         // Get the data the user provide
-        $title = request()->title;
-        $description = request()->description;
-        $postsBy = request()->post_creator;
+        $title = $request->title;
+        $description = $request->description;
+        $city = $request->city;
+        $postsBy = $request->post_creator;
         
         // Update the post
         $post = Post::findOrFail($postId);
         $post->update([
             'title' => $title,
+            'description' => $description,
+            'city' => $city,
             'user_id' => $postsBy,
         ]);
 

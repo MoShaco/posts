@@ -24,6 +24,10 @@
                     <textarea name="description" class="form-control" id="description" rows="3" value="{{old('description')}}"></textarea>
                 </div>
                 <div class="mb-3">
+                    <label for="city" class="form-label" >City</label>
+                    <input type="text" name="city" class="form-control" id="city" autofocus  placeholder="Add the city" value="{{old('city')}}">
+                </div>
+                <div class="mb-3">
                     <label  class="form-label">Post Creator</label>
                     <select name="post_creator" class="form-control">
                         @foreach($users as $user)

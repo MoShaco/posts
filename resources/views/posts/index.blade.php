@@ -35,6 +35,7 @@
           <tr>
             <th scope="col">#</th>
             <th scope="col">Title</th>
+            <th scope="col">City</th>
             <th scope="col">Posts By</th>
             <th scope="col">Created At</th>
             <th scope="col">Action</th>
