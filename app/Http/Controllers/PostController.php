@@ -30,7 +30,7 @@ class PostController extends Controller
     public function store(Request $request) {
         
         $request->validate([
-            'title' => ['required', 'min:5', 'max:20'],
+            'title' => ['required', 'max:20'],
             'description' => ['required', 'min:10', 'max:120'],
             'post_creator' => ['required', 'exists:users,id'],
         ]);
@@ -61,7 +61,7 @@ class PostController extends Controller
         // Validate user input
         $request = request();
         $request->validate([
-            'title' => ['required', 'min:5', 'max:20'],
+            'title' => ['required','max:20'],
             'description' => ['required', 'min:10', 'max:120'],
             'post_creator' => ['required', 'exists:users,id'],
         ]);
