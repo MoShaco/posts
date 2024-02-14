@@ -12,10 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('posts', function (Blueprint $table) {
+            $table->string(column: 'created by');
+        });
+    }
 
-            $table->unsignedBigInteger('user_id')->nullable();
- 
-            $table->foreign('user_id')->references('id')->on('users');
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::table('posts', function (Blueprint $table) {
+            //
         });
     }
 };
