@@ -93,12 +93,14 @@ class PostController extends Controller
         $request->validate([
             'keyword' => ['string'],
         ]);
-
-        $searchKeyword = strip_tags($request->keyword);
         
-        if (empty($searchKeyword)) {
+        //If the searching keyword is empty show all of the posts
+        if (empty($request->keyword)) {
             return view('posts.search_results', ['posts' => Post::all()]);
         }
+
+        //Show only the posts that match with the searching keyword
+        $searchKeyword = htmlspecialchars(strip_tags($request->keyword));
         
         $posts = Post::where('description', 'like', "%$searchKeyword%")->get();
 
