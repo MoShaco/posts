@@ -93,6 +93,8 @@ class PostController extends Controller
         $request->validate([
             'keyword' => ['string'],
         ]);
+
+        @dd($request->keyword);
         
         //Show only the posts that match with the searching keyword, if it's an empty str they will see the entire database
         $searchKeyword = htmlspecialchars(strip_tags($request->keyword));
