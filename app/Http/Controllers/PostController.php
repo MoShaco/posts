@@ -94,12 +94,7 @@ class PostController extends Controller
             'keyword' => ['string'],
         ]);
         
-        //If the searching keyword is empty show all of the posts
-        if (empty($request->keyword)) {
-            return view('posts.search_results', ['posts' => Post::all()]);
-        }
-
-        //Show only the posts that match with the searching keyword
+        //Show only the posts that match with the searching keyword, if it's an empty str they will see the entire database
         $searchKeyword = htmlspecialchars(strip_tags($request->keyword));
         
         $posts = Post::where('description', 'like', "%$searchKeyword%")->get();
