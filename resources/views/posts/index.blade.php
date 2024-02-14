@@ -17,6 +17,17 @@
       </div>
     </nav>
 
+    <!--check for erros in seach bar keyword
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+  -->
     <!--Show posts-->
     <div>
       <table class="table text-center mt-3 mx-3">
@@ -39,23 +50,19 @@
 
     <script>
       async function search(event) {
-          event.preventDefault();
 
-          let keyword = document.querySelector('#keyword').value;
+          event.preventDefault(); // Prevent the default form submission behavior
 
+          // Access the input field directly
+         let keyword = document.querySelector('#keyword').value;
+
+          // Make the AJAX request
           let response = await fetch('{{ route('posts.search') }}?' + new URLSearchParams({keyword}));
 
+          // Check if the request was successful (status code 200)
           if (response.ok) {
               let data = await response.text();
-
-              // Assuming your response contains only the HTML for the posts
-              let postsHtml = document.createRange().createContextualFragment(data);
-              
-              // Clear the existing content in the <tbody>
-              document.querySelector('tbody').innerHTML = '';
-
-              // Append the new posts HTML to the <tbody>
-              document.querySelector('tbody').appendChild(postsHtml);
+              document.querySelector('tbody').innerHTML = data;
           } else {
               console.error('Error in AJAX request');
           }
