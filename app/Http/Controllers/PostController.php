@@ -31,20 +31,20 @@ class PostController extends Controller
         
         $request->validate([
             'title' => ['required', 'max:20'],
-            'description' => ['required', 'min:10', 'max:120'],
             'city' => ['required','max:20'],
+            'description' => ['required', 'min:10', 'max:120'],
             'post_creator' => ['required', 'exists:users,id'],
         ]);
 
         $title = $request->title;
-        $description = $request->description;
         $city = $request->city;
+        $description = $request->description;
         $postBy = $request->post_creator;
 
         Post::create([
             'title' => $title,
-            'description' => $description,
             'city' => $city,
+            'description' => $description,
             'user_id' => $postBy,
         ]);
 
@@ -65,22 +65,22 @@ class PostController extends Controller
         $request = request();
         $request->validate([
             'title' => ['required','max:20'],
-            'description' => ['required', 'min:10', 'max:120'],
             'city' => ['required','max:20'],
+            'description' => ['required', 'min:10', 'max:120'],
             'post_creator' => ['required', 'exists:users,id'],
         ]);
         // Get the data the user provide
         $title = $request->title;
-        $description = $request->description;
         $city = $request->city;
+        $description = $request->description;
         $postsBy = $request->post_creator;
         
         // Update the post
         $post = Post::findOrFail($postId);
         $post->update([
             'title' => $title,
-            'description' => $description,
             'city' => $city,
+            'description' => $description,
             'user_id' => $postsBy,
         ]);
 
@@ -99,16 +99,25 @@ class PostController extends Controller
 
         $request->validate([
             'keyword' => ['nullable', 'string'],
+            'city' => ['nullable', 'string'],
         ]);
         
         $searchKeyword = htmlspecialchars(strip_tags($request->keyword));
-
+        $city = $request->city;
         // Handle the case when the input is empty,return all posts
-        if (empty($searchKeyword)) {
+        if (empty($searchKeyword) && empty($city)) {
             $posts = Post::all();
-        } else {
+        } else if (empty($city)){
             // Show only the posts that match the searching keyword
             $posts = Post::where('description', 'like', "%$searchKeyword%")->get();
+        } else if (empty($searchKeyword)){
+            // Show only the posts that match the searching keyword
+            $posts = Post::where('city', 'like', "%$city%")->get();
+        } else {
+            // Show only the posts that match the searching keyword
+            $posts = Post::where('description', 'like', "%$searchKeyword%")
+                            ->where('city', 'like', "%$city%")
+                            ->get();
         }
 
         return view('posts.search_results', ['posts' => $posts]);

@@ -11,7 +11,17 @@
     <nav class="navbar bg-light">
       <div class="container-fluid">
         <form class="d-flex" id="searchForm" method="GET" onsubmit="search(event)">
-          <input class="form-control me-2" type="text" name="keyword" id="keyword" placeholder="Search" aria-label="Search">
+
+          <!--Searching keyword -->
+          <input class="form-control mx-2" type="text" name="keyword" id="keyword" placeholder="Search" aria-label="Search">
+
+          <!--Searching city-->
+          <input class="form-control" list="datalistOptions" id="city_searching" name="city_searching" placeholder="Search by City...">
+            <datalist id="datalistOptions">
+              <option value="طرابلس">
+              <option value="سبها">
+              <option value="بنغازي">
+            </datalist>
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
       </div>
@@ -56,9 +66,10 @@
 
           // Access the input field directly
          let keyword = document.querySelector('#keyword').value;
+         let city = document.querySelector('#city_searching').value;
 
           // Make the AJAX request
-          let response = await fetch('{{ route('posts.search') }}?' + new URLSearchParams({keyword}));
+          let response = await fetch('{{ route('posts.search') }}?' + new URLSearchParams({keyword, city}) );
 
           // Check if the request was successful (status code 200)
           if (response.ok) {

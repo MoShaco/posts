@@ -20,6 +20,10 @@
                     <input type="text" name="title" class="form-control" value="{{$post->title}}" id="title" autofocus placeholder="Add the post's title">
                 </div>
                 <div class="mb-3">
+                    <label for="city" class="form-label">City</label>
+                    <input type="text" name="city" class="form-control" value="{{$post->city}}" id="city" placeholder="City">
+                </div>
+                <div class="mb-3">
                     <label for="description" class="form-label">Description</label>
                     <textarea name="description" class="form-control" id="description" rows="3">{{$post->description}}</textarea>
                 </div>
